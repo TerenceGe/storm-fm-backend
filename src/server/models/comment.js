@@ -11,7 +11,7 @@ const CommentSchema = new Schema({
     ref: 'User',
     required: true
   },
-  replay: {
+  reply_to: {
     type: Schema.Types.ObjectId,
     ref: 'Comment'
   },

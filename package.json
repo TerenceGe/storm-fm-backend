@@ -24,7 +24,12 @@
     "morgan": "^1.7.0"
   },
   "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
     "chai": "^3.5.0",
-    "mocha": "^3.1.0"
+    "clean-webpack-plugin": "^0.1.12",
+    "json-loader": "^0.5.4",
+    "mocha": "^3.1.0",
+    "webpack": "^1.13.2"
   }
 }
