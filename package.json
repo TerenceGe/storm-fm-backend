@@ -1,0 +1,30 @@
+{
+  "name": "stormfm-backend",
+  "version": "1.0.0",
+  "description": "storm fm backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Terence Ge <terencegehui@yahoo.com> (http://terencege.com)",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "co": "^4.6.0",
+    "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "express-jwt": "^5.1.0",
+    "express-validation": "^1.0.1",
+    "joi": "^9.1.0",
+    "jsonwebtoken": "^7.1.9",
+    "mongoose": "^4.6.3",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.0"
+  }
+}
