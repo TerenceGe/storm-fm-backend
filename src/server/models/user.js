@@ -1,57 +1,104 @@
-import mongoose, { Schema } from 'mongoosee'
+import Promise from 'bluebird'
+import mongoose from 'mongoose'
+import httpStatus from 'http-status'
 import bcrypt from 'bcrypt'
+import APIError from '../helpers/APIError'
 
-const UserSchema = new Schema({
+/**
+ * User Schema
+ */
+const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   email: {
     type: String,
-    required: true,
-    unique: true,
-    match: [/\S+@\S+/, 'The value of path {PATH} ({VALUE}) is not a valid email address.']
+    required: true
   },
   password: {
     type: String,
-    requird: true
-  },
-  confirmed: {
-    type: Boolean,
-    default: false
-  },
-  avatar: {
-    type: String
-  },
-  createAt: {
-    type: Date,
-    default: Date.now()
+    required: true
   },
   updatedAt: {
     type: Date,
-    default: Date.now()
+    default: Date.now
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 })
 
+/**
+ * Add your
+ * - pre-save hooks
+ * - validations
+ * - virtuals
+ */
+
 UserSchema.pre('save', (next) => {
-  if (this.isModified('password')) {
-    this.password = this.encryptPassword(this.password)
-  }
+  if (!this.isModified('password')) return next()
+  this.password = this.encryptPassword(this.password)
   next()
 })
 
-UserSchema.methods = {
-  authenticate: (plainTextPassword) => {
-    return bcrypt.compareSync(plainTextPassword, this.password)
+/**
+ * Methods
+ */
+UserSchema.method({
+})
+
+/**
+ * Statics
+ */
+UserSchema.statics = {
+  /**
+   * Get user
+   * @param {ObjectId} id - The objectId of user.
+   * @returns {Promise<User, APIError>}
+   */
+  authenticate(plainTextPword) {
+    return bcrypt.compareSync(plainTextPword, this.password);
   },
-  encryptPassword: (plainTextPassword) => {
-    if (plainTextPassword) {
-      const salt = bcrypt.genSaltSync(10)
-      return bcrypt.hashSync(plainTextPassword, salt)
+
+  encryptPassword(plainTextPword) {
+    if (!plainTextPword) {
+      return ''
+    } else {
+      var salt = bcrypt.genSaltSync(10);
+      return bcrypt.hashSync(plainTextPword, salt);
     }
-    return ''
+  },
+
+  get(id) {
+    return this.findById(id)
+      .exec()
+      .then((user) => {
+        if (user) {
+          return user
+        }
+        const err = new APIError('No such user exists!', httpStatus.NOT_FOUND)
+        return Promise.reject(err)
+      })
+  },
+
+  /**
+   * List users in descending order of 'createdAt' timestamp.
+   * @param {number} skip - Number of users to be skipped.
+   * @param {number} limit - Limit number of users to be returned.
+   * @returns {Promise<User[]>}
+   */
+  list({ skip = 0, limit = 50 } = {}) {
+    return this.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec()
   }
 }
 
+/**
+ * @typedef User
+ */
 export default mongoose.model('User', UserSchema)

@@ -1,0 +1,7 @@
+{
+  "env": "production",
+  "MONGOOSE_DEBUG": true,
+  "jwtSecret": "45c6e42142fb9e8cb7d428e47ff189ee",
+  "db": "mongodb://localhost/storm-fm-rest-api-development",
+  "port": 3000
+}
