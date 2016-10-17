@@ -4,8 +4,8 @@
   "description": "storm fm backend",
   "main": "app.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack --progress --colors",
-    "build:dev": "NODE_ENV=development webpack --progress --colors",
+    "build": "NODE_ENV=production webpack --progress --colors --watch",
+    "build:dev": "NODE_ENV=development webpack --progress --colors --watch",
     "server": "NODE_ENV=production nodemon dist/app.js"
   },
   "author": "Terence Ge <terencegehui@yahoo.com> (http://terencege.com)",

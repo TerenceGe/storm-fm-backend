@@ -1,37 +1,22 @@
 import jwt from 'jsonwebtoken'
 import httpStatus from 'http-status'
 import APIError from '../helpers/APIError'
+import User from '../models/user'
 
 const config = require('../../config/env').default
 
-// sample user, used for authentication
-const user = {
-  username: 'react',
-  password: 'express'
-}
-
-/**
- * Returns jwt token if valid username and password is provided
- * @param req
- * @param res
- * @param next
- * @returns {*}
- */
 function login(req, res, next) {
-  // Ideally you'll fetch this from the db
-  // Idea here was to show how jwt works with simplicity
-  if (req.body.username === user.username && req.body.password === user.password) {
-    const token = jwt.sign({
-      username: user.username
-    }, config.jwtSecret)
-    return res.json({
-      token,
-      username: user.username
+  User.authorize(req.body.identity, req.body.password)
+    .then((user) => {
+      const token = jwt.sign({
+        id: user.id
+      }, config.jwtSecret)
+      return res.json({
+        token,
+        id: user.id
+      })
     })
-  }
-
-  const err = new APIError('Authentication error', httpStatus.UNAUTHORIZED)
-  return next(err)
+    .catch(e => next(e))
 }
 
 /**

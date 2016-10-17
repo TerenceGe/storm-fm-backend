@@ -20,21 +20,18 @@ function get(req, res) {
   return res.json(req.user)
 }
 
-/**
- * Create new user
- * @property {string} req.body.username - The username of user.
- * @property {string} req.body.mobileNumber - The mobileNumber of user.
- * @returns {User}
- */
 function create(req, res, next) {
-  const user = new User({
-    username: req.body.username,
-    email: req.body.email,
-    password: req.body.password
-  })
-
-  user.save()
-    .then(savedUser => res.json(savedUser))
+  User.checkUserNotExists(req.body.username, req.body.email)
+    .then(() => {
+      const user = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password
+      })
+      user.save()
+        .then(savedUser => res.json(savedUser))
+        .catch(e => next(e))
+    })
     .catch(e => next(e))
 }
 
@@ -47,7 +44,7 @@ function create(req, res, next) {
 function update(req, res, next) {
   const user = req.user
   user.password = req.body.password
-  user.updatedAt = Date.now()
+  user.updated_at = Date.now()
   user.save()
     .then(savedUser => res.json(savedUser))
     .catch(e => next(e))

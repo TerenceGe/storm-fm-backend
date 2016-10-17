@@ -1,0 +1,16 @@
+# authenticate user
+POST http://dev.stormfm.io:3000/api/auth/login
+Content-Type: application/json
+{
+  "identity": "terencege2",
+  "password": "password"
+}
+
+# create user
+POST http://dev.stormfm.io:3000/api/users
+Content-Type: application/json
+{
+  "username": "terencege",
+  "email": "terencegehui@yahoo.com",
+  "password": "password"
+}

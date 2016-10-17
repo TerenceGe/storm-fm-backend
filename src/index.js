@@ -46,7 +46,6 @@ app.use('/api', routes)
 
 app.use((err, req, res, next) => {
   if (err instanceof expressValidation.ValidationError) {
-
     const unifiedErrorMessage = err.errors.map(error => error.messages.join('. ')).join(' and ')
     const error = new APIError(unifiedErrorMessage, err.status, true)
     return next(error)
@@ -68,12 +67,13 @@ if (config.env !== 'test') {
   }))
 }
 
-app.use((err, req, res, next) =>
+app.use((err, req, res, next) => {
+  const stack = config.env === 'development' ?  { stack: err.stack } : {}
   res.status(err.status).json({
     message: err.isPublic ? err.message : httpStatus[err.status],
-    stack: config.env === 'development' ? err.stack : {}
+    ...stack
   })
-)
+})
 
 const debug = require('debug')('stormfm:index')
 

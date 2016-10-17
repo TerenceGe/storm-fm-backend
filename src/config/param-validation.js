@@ -9,7 +9,6 @@ export default {
       password: Joi.string().regex(/^[a-zA-Z]\w{3,20}$/).required()
     }
   },
-
   // UPDATE /api/users/:userId
   updateUser: {
     body: {
@@ -19,11 +18,10 @@ export default {
       userId: Joi.string().hex().required()
     }
   },
-
   // POST /api/auth/login
   login: {
     body: {
-      username: Joi.string().required(),
+      identity: Joi.string().required(),
       password: Joi.string().regex(/^[a-zA-Z]\w{3,20}$/).required()
     }
   }

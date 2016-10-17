@@ -4,27 +4,28 @@ import httpStatus from 'http-status'
 import bcrypt from 'bcrypt'
 import APIError from '../helpers/APIError'
 
-/**
- * User Schema
- */
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    index: true
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    unique: true,
+    index: true
   },
   password: {
     type: String,
     required: true
   },
-  updatedAt: {
+  updated_at: {
     type: Date,
     default: Date.now
   },
-  createdAt: {
+  created_at: {
     type: Date,
     default: Date.now
   }
@@ -37,31 +38,17 @@ const UserSchema = new mongoose.Schema({
  * - virtuals
  */
 
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function(next) {
   if (!this.isModified('password')) return next()
   this.password = this.encryptPassword(this.password)
   next()
+  return null
 })
 
-/**
- * Methods
- */
 UserSchema.method({
-})
-
-/**
- * Statics
- */
-UserSchema.statics = {
-  /**
-   * Get user
-   * @param {ObjectId} id - The objectId of user.
-   * @returns {Promise<User, APIError>}
-   */
   authenticate(plainTextPword) {
-    return bcrypt.compareSync(plainTextPword, this.password);
+    return bcrypt.compareSync(plainTextPword, this.password)
   },
-
   encryptPassword(plainTextPword) {
     if (!plainTextPword) {
       return ''
@@ -69,12 +56,44 @@ UserSchema.statics = {
       var salt = bcrypt.genSaltSync(10);
       return bcrypt.hashSync(plainTextPword, salt);
     }
-  },
+  }
+})
 
+UserSchema.statics = {
+  checkUserNotExists(username, email) {
+    const checkUserNameExists = this.findOne({ username }).exec().then(user => !!user)
+    const checkEmailExists = this.findOne({ email }).exec().then(user => !!user)
+    return Promise.all([checkUserNameExists, checkEmailExists]).then(values => {
+      if(values[0]) {
+        const err = new APIError('Username has been taken!', httpStatus.UNAUTHORIZED, true)
+        return Promise.reject(err)
+      }
+      else if(values[1]) {
+        const err = new APIError('Email has been taken!', httpStatus.UNAUTHORIZED, true)
+        return Promise.reject(err)
+      }
+      return true
+    })
+  },
+  authorize(identity, password) {
+    return this.findOne({ $or: [{ username: identity }, { email: identity }] })
+      .exec().then((user) => {
+        if(!user) {
+          const err = new APIError('Incorrect username or email!', httpStatus.UNAUTHORIZED, true)
+          return Promise.reject(err)
+        }
+        else if(!user.authenticate(password)) {
+          const err = new APIError('Incorrect password!', httpStatus.UNAUTHORIZED, true)
+          return Promise.reject(err)
+        }
+        else {
+          return user
+        }
+      })
+  },
   get(id) {
     return this.findById(id)
-      .exec()
-      .then((user) => {
+      .exec().then((user) => {
         if (user) {
           return user
         }
@@ -82,23 +101,13 @@ UserSchema.statics = {
         return Promise.reject(err)
       })
   },
-
-  /**
-   * List users in descending order of 'createdAt' timestamp.
-   * @param {number} skip - Number of users to be skipped.
-   * @param {number} limit - Limit number of users to be returned.
-   * @returns {Promise<User[]>}
-   */
   list({ skip = 0, limit = 50 } = {}) {
     return this.find()
-      .sort({ createdAt: -1 })
+      .sort({ created_at: -1 })
       .skip(skip)
       .limit(limit)
       .exec()
   }
 }
 
-/**
- * @typedef User
- */
 export default mongoose.model('User', UserSchema)
