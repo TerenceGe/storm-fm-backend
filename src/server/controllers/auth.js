@@ -10,7 +10,7 @@ function login(req, res, next) {
     .then((user) => {
       const token = jwt.sign({
         id: user.id
-      }, config.jwtSecret)
+      }, config.jwtSecret, { expiresIn: config.jwtExpireTime })
       return res.json({
         token,
         id: user.id

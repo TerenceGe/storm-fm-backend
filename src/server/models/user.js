@@ -2,6 +2,7 @@ import Promise from 'bluebird'
 import mongoose from 'mongoose'
 import httpStatus from 'http-status'
 import bcrypt from 'bcrypt'
+import co from 'co'
 import APIError from '../helpers/APIError'
 
 const UserSchema = new mongoose.Schema({
@@ -31,13 +32,6 @@ const UserSchema = new mongoose.Schema({
   }
 })
 
-/**
- * Add your
- * - pre-save hooks
- * - validations
- * - virtuals
- */
-
 UserSchema.pre('save', function(next) {
   if (!this.isModified('password')) return next()
   this.password = this.encryptPassword(this.password)
@@ -60,20 +54,18 @@ UserSchema.method({
 })
 
 UserSchema.statics = {
-  checkUserNotExists(username, email) {
-    const checkUserNameExists = this.findOne({ username }).exec().then(user => !!user)
-    const checkEmailExists = this.findOne({ email }).exec().then(user => !!user)
-    return Promise.all([checkUserNameExists, checkEmailExists]).then(values => {
-      if(values[0]) {
+  checkUserExists(username, email) {
+    return co(function* () {
+      if(yield this.findOne({ username }).exec()) {
         const err = new APIError('Username has been taken!', httpStatus.UNAUTHORIZED, true)
         return Promise.reject(err)
       }
-      else if(values[1]) {
+      if(yield this.findOne({ email }).exec()) {
         const err = new APIError('Email has been taken!', httpStatus.UNAUTHORIZED, true)
         return Promise.reject(err)
       }
-      return true
-    })
+      return false
+    }.bind(this))
   },
   authorize(identity, password) {
     return this.findOne({ $or: [{ username: identity }, { email: identity }] })

@@ -2,7 +2,7 @@
 POST http://dev.stormfm.io:3000/api/auth/login
 Content-Type: application/json
 {
-  "identity": "terencege2",
+  "identity": "terencege",
   "password": "password"
 }
 
@@ -10,7 +10,10 @@ Content-Type: application/json
 POST http://dev.stormfm.io:3000/api/users
 Content-Type: application/json
 {
-  "username": "terencege",
+  "username": "terenceg",
   "email": "terencegehui@yahoo.com",
   "password": "password"
 }
+
+# get user
+GET http://dev.stormfm.io:3000/api/users/5804ac7840b9a7b9cb32c782
