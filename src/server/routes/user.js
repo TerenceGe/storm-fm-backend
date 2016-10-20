@@ -1,7 +1,10 @@
 import express from 'express'
+import co from 'co'
 import validate from 'express-validation'
+import expressJwt from 'express-jwt'
 import paramValidation from '../../config/param-validation'
 import userCtrl from '../controllers/user'
+import config from '../../config/env'
 
 const router = express.Router() // eslint-disable-line new-cap
 

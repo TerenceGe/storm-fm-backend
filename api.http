@@ -10,10 +10,14 @@ Content-Type: application/json
 POST http://dev.stormfm.io:3000/api/users
 Content-Type: application/json
 {
-  "username": "terenceg",
+  "username": "terencege",
   "email": "terencegehui@yahoo.com",
   "password": "password"
 }
 
 # get user
 GET http://dev.stormfm.io:3000/api/users/5804ac7840b9a7b9cb32c782
+
+# random number
+GET http://dev.stormfm.io:3000/api/auth/random-number
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MDRmNDllNDY5MGQ4ZDMwZWM0OWUyYSIsImlhdCI6MTQ3Njk3MDM1OCwiZXhwIjoxNDc2OTkxOTU4fQ.CS_3f59L-IaoREnCJhHiESSz7FQfc28NaX2rdQ0BTQY

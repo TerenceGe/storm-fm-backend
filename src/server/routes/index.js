@@ -1,4 +1,6 @@
 import express from 'express'
+import expressJwt from 'express-jwt'
+import config from '../../config/env'
 import userRoutes from './user'
 // import trackRoutes from './track'
 // import likeRoutes from './like`'

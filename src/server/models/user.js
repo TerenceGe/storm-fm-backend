@@ -54,7 +54,7 @@ UserSchema.method({
 })
 
 UserSchema.statics = {
-  checkUserExists(username, email) {
+  checkExists(username, email) {
     return co(function* () {
       if(yield this.findOne({ username }).exec()) {
         const err = new APIError('Username has been taken!', httpStatus.UNAUTHORIZED, true)
@@ -64,34 +64,32 @@ UserSchema.statics = {
         const err = new APIError('Email has been taken!', httpStatus.UNAUTHORIZED, true)
         return Promise.reject(err)
       }
-      return false
+      return null
     }.bind(this))
   },
   authorize(identity, password) {
-    return this.findOne({ $or: [{ username: identity }, { email: identity }] })
-      .exec().then((user) => {
-        if(!user) {
-          const err = new APIError('Incorrect username or email!', httpStatus.UNAUTHORIZED, true)
-          return Promise.reject(err)
-        }
-        else if(!user.authenticate(password)) {
-          const err = new APIError('Incorrect password!', httpStatus.UNAUTHORIZED, true)
-          return Promise.reject(err)
-        }
-        else {
-          return user
-        }
-      })
+    return co(function* () {
+      const user = yield this.findOne({ $or: [{ username: identity }, { email: identity }] }).exec()
+      if(!user) {
+        const err = new APIError('Incorrect username or email!', httpStatus.UNAUTHORIZED, true)
+        return Promise.reject(err)
+      }
+      else if(!user.authenticate(password)) {
+        const err = new APIError('Incorrect password!', httpStatus.UNAUTHORIZED, true)
+        return Promise.reject(err)
+      }
+      return user
+    }.bind(this))
   },
   get(id) {
-    return this.findById(id)
-      .exec().then((user) => {
-        if (user) {
-          return user
-        }
+    return co(function* () {
+      const user = yield this.findById(id).exec()
+      if(!user) {
         const err = new APIError('No such user exists!', httpStatus.NOT_FOUND)
         return Promise.reject(err)
-      })
+      }
+      return user
+    }.bind(this))
   },
   list({ skip = 0, limit = 50 } = {}) {
     return this.find()
