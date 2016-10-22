@@ -33,10 +33,10 @@ const UserSchema = new mongoose.Schema({
 })
 
 UserSchema.pre('save', function(next) {
-  if (!this.isModified('password')) return next()
-  this.password = this.encryptPassword(this.password)
-  next()
-  return null
+  if(this.isModified('password')) {
+    this.password = this.encryptPassword(this.password)
+  }
+  return next()
 })
 
 UserSchema.method({

@@ -3,8 +3,6 @@ import User from '../models/user'
 
 function get(req, res, next) {
   co(function* (){
-    console.log(req.params.id)
-    console.log(req.user)
     const user = yield User.get(req.params.id, req.user && req.user.id === req.params.id)
     return res.json(user)
   }).catch(e => next(e))
@@ -12,12 +10,9 @@ function get(req, res, next) {
 
 function create(req, res, next) {
   co(function* () {
-    yield User.checkExists(req.body.username, req.body.email)
-    const user = new User({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password
-    })
+    const { username, email, password } = req.body
+    yield User.checkExists(username, email)
+    const user = new User({ username, email, password })
     const savedUser = yield user.save()
     return res.json(savedUser)
   }).catch(e => next(e))

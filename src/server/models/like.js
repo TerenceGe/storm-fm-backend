@@ -1,20 +1,19 @@
 import mongoose, { Schema } from 'mongoosee'
 
 const LikeSchema = new Schema({
-  user: {
+  user_id: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  track: {
+  track_id: {
     type: Schema.Types.ObjectId,
     ref: 'Track',
     required: true
   },
-  active: {
+  trashed: {
     type: Boolean,
-    required: true,
-    default: true
+    default: false
   }
 })
 

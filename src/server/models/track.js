@@ -1,4 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
+import co from 'co'
+import moment from 'moment'
 
 const TrackSchema = new Schema({
   title: {
@@ -6,40 +8,79 @@ const TrackSchema = new Schema({
     required: true
   },
   artist: {
-    type: String,
-    required: true
+    type: {
+      name: {
+        type: String,
+        required: true
+      }
+    }
   },
   description: {
     type: String,
     required: true
   },
-  artUrl: {
-    type: String,
-    required: true
+  artwork: {
+    type: {
+      url: {
+        type: String,
+        required: true
+      }
+    }
   },
-  sourceUrl: {
-    type: String,
-    required: true
+  source: {
+    type: {
+      name: {
+        type: String,
+        required: true
+      },
+      url: {
+        type: String,
+        required: true
+      }
+    }
   },
-  hunter: {
+  user_id: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  likes: {
+  like_count: {
     type: Number,
-    required: true,
     default: 0
   },
-  comments: {
+  comment_count: {
     type: Number,
-    required: true,
     default: 0
   },
-  createAt: {
+  updated_at: {
+    type: Date,
+    default: Date.now()
+  },
+  created_at: {
     type: Date,
     default: Date.now()
   }
 })
+
+TrackSchema.statics = {
+  get(id) {
+    return co(function* () {
+      const track = yield this.findById(id).exec()
+      if(!track) {
+        const err = new APIError('No such track exists!', httpStatus.NOT_FOUND)
+        return Promise.reject(err)
+      }
+      return track
+    }.bind(this))
+  },
+  list({ page = 0, filter = 'popular' } = {}) {
+    return this.find({
+      created_at: {
+        $gte: moment().subtract(page, 'days').startOf('day'),
+        $lt: moment().subtract(page, 'days').endOf('day')
+      }
+    }).exec()
+  }
+}
 
 export default mongoose.model('Track', TrackSchema)

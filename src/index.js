@@ -48,7 +48,9 @@ app.use('/api', expressJwt({
 }).unless({
   path: [
     { url: '/api/users', methods: ['POST'] },
+    { url: '/api/tracks', methods: ['GET'] },
     { url: /^\/api\/users\/.*/, methods: ['GET'] },
+    { url: /^\/api\/tracks\/.*/, methods: ['GET'] },
     { url: '/api/auth/login' }
   ]
 }), routes)

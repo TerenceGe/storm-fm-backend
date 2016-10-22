@@ -2,20 +2,20 @@
 POST http://dev.stormfm.io:3000/api/auth/login
 Content-Type: application/json
 {
-  "identity": "terencege2",
-  "password": "password"
+  "identity": "terencege",
+  "password": "password2"
 }
 
 # create user
 POST http://dev.stormfm.io:3000/api/users
 Content-Type: application/json
 {
-  "username": "terencege2",
-  "email": "terencegehui2@yahoo.com",
+  "username": "terencege4",
+  "email": "terencegehui4@yahoo.com",
   "password": "password"
 }
 
-# list users
+# get users
 GET http://dev.stormfm.io:3000/api/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzExMjUyNywiZXhwIjoxNDc3MTM0MTI3fQ.1f9wMligRSe8JBrGfHLUt_-TdSZPT0J9ZyUbrugaikM
 
@@ -25,7 +25,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmM
 
 # update user
 PUT http://dev.stormfm.io:3000/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzExMzA5OSwiZXhwIjoxNDc3MTM0Njk5fQ.-tIHJhRstF5kGEw9atSHI7TO3W_v6YvBW2OLKV9do6g
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGIyNGEyYTYzZjM2M2MzODcwNDcxMCIsImlhdCI6MTQ3NzEyNTcyOSwiZXhwIjoxNDc3MTQ3MzI5fQ.ebWUuqxZwhQKKzbVZEzjnPVYZumZ05ShHiyoRxunxTs
 Content-Type: application/json
 {
   "password": "password2"
@@ -34,3 +34,28 @@ Content-Type: application/json
 # delete user
 DELETE http://dev.stormfm.io:3000/api/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFmMzU5ZGFmMGNkMmE0MjgyZjYzZCIsImlhdCI6MTQ3NzExMzI4NSwiZXhwIjoxNDc3MTM0ODg1fQ.eObTjqTBXAuoHMruQhao0zvuK4olOWY7qb5_gr5VNso
+
+# create track
+POST http://dev.stormfm.io:3000/api/tracks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzEyOTgyNCwiZXhwIjoxNDc3MTUxNDI0fQ.q-Dn3Mf81ZwB9duCXuLkFzuo_3432TpmuRgjqgdxDRI
+Content-type: application/json
+{
+  "title": "Snapdragon",
+  "artist": {
+    "name": "ilan Bluestone"
+  },
+  "description": "Fresh track from IB picked as the \"Record of the week\" by Above & Beyond.",
+  "artwork": {
+    "url": "https://i1.sndcdn.com/artworks-000092217794-pyp3n3-large.jpg"
+  },
+  "source": {
+    "type": "soundcloud",
+    "url": "https://soundcloud.com/ibluestone/snapdragon-abgt"
+  }
+}
+
+# get tracks
+GET http://dev.stormfm.io:3000/api/tracks
+
+# get track
+GET http://dev.stormfm.io:3000/api/tracks/580b488128bd794b8cadecd9
