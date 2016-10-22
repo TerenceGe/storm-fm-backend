@@ -17,11 +17,4 @@ function login(req, res, next) {
   }).catch(e => next(e))
 }
 
-function getRandomNumber(req, res) {
-  return res.json({
-    user: req.user,
-    num: Math.random() * 100
-  })
-}
-
-export default { login, getRandomNumber }
+export default { login }

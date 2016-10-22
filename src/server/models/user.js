@@ -81,9 +81,9 @@ UserSchema.statics = {
       return user
     }.bind(this))
   },
-  get(id) {
+  get(id, bySelf = false) {
     return co(function* () {
-      const user = yield this.findById(id).exec()
+      const user = yield this.findById(id, !bySelf ? { username: 1, email: 1 } : null).exec()
       if(!user) {
         const err = new APIError('No such user exists!', httpStatus.NOT_FOUND)
         return Promise.reject(err)

@@ -2,7 +2,7 @@
 POST http://dev.stormfm.io:3000/api/auth/login
 Content-Type: application/json
 {
-  "identity": "terencege",
+  "identity": "terencege2",
   "password": "password"
 }
 
@@ -10,14 +10,27 @@ Content-Type: application/json
 POST http://dev.stormfm.io:3000/api/users
 Content-Type: application/json
 {
-  "username": "terencege",
-  "email": "terencegehui@yahoo.com",
+  "username": "terencege2",
+  "email": "terencegehui2@yahoo.com",
   "password": "password"
 }
 
-# get user
-GET http://dev.stormfm.io:3000/api/users/5804ac7840b9a7b9cb32c782
+# list users
+GET http://dev.stormfm.io:3000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzExMjUyNywiZXhwIjoxNDc3MTM0MTI3fQ.1f9wMligRSe8JBrGfHLUt_-TdSZPT0J9ZyUbrugaikM
 
-# random number
-GET http://dev.stormfm.io:3000/api/auth/random-number
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MDRmNDllNDY5MGQ4ZDMwZWM0OWUyYSIsImlhdCI6MTQ3Njk3MDM1OCwiZXhwIjoxNDc2OTkxOTU4fQ.CS_3f59L-IaoREnCJhHiESSz7FQfc28NaX2rdQ0BTQY
+# get user
+GET http://dev.stormfm.io:3000/api/users/580aef4f04c1ce29371c0971
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzExMjAxNCwiZXhwIjoxNDc3MTMzNjE0fQ.ZpjCjUjyMIl0bggb8j3a2uCWL7dZtEz33lipH9fl-zY
+
+# update user
+PUT http://dev.stormfm.io:3000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzExMzA5OSwiZXhwIjoxNDc3MTM0Njk5fQ.-tIHJhRstF5kGEw9atSHI7TO3W_v6YvBW2OLKV9do6g
+Content-Type: application/json
+{
+  "password": "password2"
+}
+
+# delete user
+DELETE http://dev.stormfm.io:3000/api/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFmMzU5ZGFmMGNkMmE0MjgyZjYzZCIsImlhdCI6MTQ3NzExMzI4NSwiZXhwIjoxNDc3MTM0ODg1fQ.eObTjqTBXAuoHMruQhao0zvuK4olOWY7qb5_gr5VNso

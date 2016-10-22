@@ -1,15 +1,13 @@
 import co from 'co'
 import User from '../models/user'
 
-function load(req, res, next, id) {
-  co(function* () {
-    req.user = yield User.get(id) // eslint-disable-line no-param-reassign
-    return next()
+function get(req, res, next) {
+  co(function* (){
+    console.log(req.params.id)
+    console.log(req.user)
+    const user = yield User.get(req.params.id, req.user && req.user.id === req.params.id)
+    return res.json(user)
   }).catch(e => next(e))
-}
-
-function get(req, res) {
-  return res.json(req.user)
 }
 
 function create(req, res, next) {
@@ -26,26 +24,29 @@ function create(req, res, next) {
 }
 
 function update(req, res, next) {
-  const user = req.user
-  user.password = req.body.password
-  user.updated_at = Date.now()
-  user.save()
-    .then(savedUser => res.json(savedUser))
-    .catch(e => next(e))
+  co(function* () {
+    const user = yield User.get(req.user.id)
+    user.password = req.body.password
+    user.updated_at = Date.now()
+    const savedUser = yield user.save()
+    return res.json(savedUser)
+  }).catch(e => next(e))
 }
 
 function list(req, res, next) {
-  const { limit = 50, skip = 0 } = req.query
-  User.list({ limit, skip })
-    .then(users => res.json(users))
-    .catch(e => next(e))
+  co(function* () {
+    const { limit = 50, skip = 0 } = req.query
+    const users = yield User.list({ limit, skip })
+    return res.json(users)
+  }).catch(e => next(e))
 }
 
 function remove(req, res, next) {
-  const user = req.user
-  user.remove()
-    .then(deletedUser => res.json(deletedUser))
-    .catch(e => next(e))
+  co(function* () {
+    const user = yield User.get(req.user.id)
+    const deletedUser = yield user.remove()
+    return res.json(deletedUser)
+  }).catch(e => next(e))
 }
 
-export default { load, get, create, update, list, remove }
+export default { get, create, update, list, remove }

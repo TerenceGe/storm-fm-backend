@@ -12,6 +12,7 @@ import httpStatus from 'http-status'
 import expressWinston from 'express-winston'
 import expressValidation from 'express-validation'
 import helmet from 'helmet'
+import expressJwt from 'express-jwt'
 import winstonInstance from './config/winston'
 import routes from './server/routes'
 import config from './config/env'
@@ -42,7 +43,15 @@ if (config.env === 'development') {
   }))
 }
 
-app.use('/api', routes)
+app.use('/api', expressJwt({
+  secret: config.jwtSecret
+}).unless({
+  path: [
+    { url: '/api/users', methods: ['POST'] },
+    { url: /^\/api\/users\/.*/, methods: ['GET'] },
+    { url: '/api/auth/login' }
+  ]
+}), routes)
 
 app.use((err, req, res, next) => {
   if (err instanceof expressValidation.ValidationError) {
