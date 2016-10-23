@@ -80,6 +80,13 @@ TrackSchema.statics = {
         $lt: moment().subtract(page, 'days').endOf('day')
       }
     }).exec()
+  },
+  like(_id, inc) {
+    return this.findOneAndUpdate(
+      { _id },
+      { $inc: { like_count: inc } },
+      { new: true }
+    ).exec()
   }
 }
 

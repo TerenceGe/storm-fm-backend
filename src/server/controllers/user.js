@@ -3,7 +3,7 @@ import User from '../models/user'
 
 function get(req, res, next) {
   co(function* (){
-    const user = yield User.get(req.params.id, req.user && req.user.id === req.params.id)
+    const user = yield User.get(req.params.id)
     return res.json(user)
   }).catch(e => next(e))
 }

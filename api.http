@@ -3,7 +3,7 @@ POST http://dev.stormfm.io:3000/api/auth/login
 Content-Type: application/json
 {
   "identity": "terencege",
-  "password": "password2"
+  "password": "password"
 }
 
 # create user
@@ -17,18 +17,18 @@ Content-Type: application/json
 
 # get users
 GET http://dev.stormfm.io:3000/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzExMjUyNywiZXhwIjoxNDc3MTM0MTI3fQ.1f9wMligRSe8JBrGfHLUt_-TdSZPT0J9ZyUbrugaikM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzE0OTIwOSwiZXhwIjoxNDc3MTcwODA5fQ.P28-72-8Lj8GlkuwEwsNTDT5PbcAC-u_4qPVYNnOMUc
 
 # get user
 GET http://dev.stormfm.io:3000/api/users/580aef4f04c1ce29371c0971
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzExMjAxNCwiZXhwIjoxNDc3MTMzNjE0fQ.ZpjCjUjyMIl0bggb8j3a2uCWL7dZtEz33lipH9fl-zY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzE0OTIwOSwiZXhwIjoxNDc3MTcwODA5fQ.P28-72-8Lj8GlkuwEwsNTDT5PbcAC-u_4qPVYNnOMUc
 
 # update user
 PUT http://dev.stormfm.io:3000/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGIyNGEyYTYzZjM2M2MzODcwNDcxMCIsImlhdCI6MTQ3NzEyNTcyOSwiZXhwIjoxNDc3MTQ3MzI5fQ.ebWUuqxZwhQKKzbVZEzjnPVYZumZ05ShHiyoRxunxTs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzE4OTcxNCwiZXhwIjoxNDc3MjExMzE0fQ.80RGP6-EjWUZUqNI_ZQwFLgVhogfmWo0PAJpcB0byIw
 Content-Type: application/json
 {
-  "password": "password2"
+  "password": "password"
 }
 
 # delete user
@@ -59,3 +59,19 @@ GET http://dev.stormfm.io:3000/api/tracks
 
 # get track
 GET http://dev.stormfm.io:3000/api/tracks/580b488128bd794b8cadecd9
+
+# create like
+POST http://dev.stormfm.io:3000/api/likes
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzE4NDIwMywiZXhwIjoxNDc3MjA1ODAzfQ.YaOyXFEALgpvqbiQr3NKaCbSYSmGkp-oaWbW_QqM1NY
+{
+  "track_id": "580b488128bd794b8cadecd9"
+}
+
+# remove like
+DELETE http://dev.stormfm.io:3000/api/likes
+Content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzE4NDIwMywiZXhwIjoxNDc3MjA1ODAzfQ.YaOyXFEALgpvqbiQr3NKaCbSYSmGkp-oaWbW_QqM1NY
+{
+  "track_id": "580b488128bd794b8cadecd9"
+}

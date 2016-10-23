@@ -22,6 +22,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  like_count: {
+    type: Number,
+    default: 0
+  },
+  submit_count: {
+    type: Number,
+    default: 0
+  },
   updated_at: {
     type: Date,
     default: Date.now
@@ -81,9 +89,9 @@ UserSchema.statics = {
       return user
     }.bind(this))
   },
-  get(id, bySelf = false) {
+  get(id) {
     return co(function* () {
-      const user = yield this.findById(id, !bySelf ? { username: 1, email: 1 } : null).exec()
+      const user = yield this.findById(id, { password: 0 }).exec()
       if(!user) {
         const err = new APIError('No such user exists!', httpStatus.NOT_FOUND)
         return Promise.reject(err)
@@ -97,6 +105,13 @@ UserSchema.statics = {
       .skip(skip)
       .limit(limit)
       .exec()
+  },
+  like(_id, inc) {
+    return this.findOneAndUpdate(
+      { _id },
+      { $inc: { like_count: inc } },
+      { new: true, select: { password: 0 } }
+    ).exec()
   }
 }
 
