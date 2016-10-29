@@ -9,7 +9,7 @@ import config from '../../config/env'
 
 const router = express.Router() // eslint-disable-line new-cap
 
-router.get('/health-check', (req, res) => res.send('OK'))
+router.get('/hello', (req, res) => res.send('goodbye'))
 router.use('/auth', authRoutes)
 router.use('/users', userRoutes)
 router.use('/tracks', trackRoutes)

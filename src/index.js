@@ -47,6 +47,7 @@ app.use('/api', expressJwt({
   secret: config.jwtSecret
 }).unless({
   path: [
+    { url: '/api/hello' },
     { url: '/api/users', methods: ['POST'] },
     { url: '/api/tracks', methods: ['GET'] },
     { url: /^\/api\/users\/.*/, methods: ['GET'] },

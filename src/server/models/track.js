@@ -74,12 +74,17 @@ TrackSchema.statics = {
     }.bind(this))
   },
   list({ page = 0, filter = 'popular' } = {}) {
-    return this.find({
-      created_at: {
-        $gte: moment().subtract(page, 'days').startOf('day'),
-        $lt: moment().subtract(page, 'days').endOf('day')
-      }
-    }).exec()
+    return co(function* () {
+      const date = moment().subtract(page, 'days')
+      const tracks = yield this.find({
+        created_at: {
+          $gte: moment(date).startOf('day'),
+          $lt: moment(date).endOf('day')
+        }
+      }).exec()
+      const count = tracks.length
+      return { date, count, tracks }
+    }.bind(this))
   },
   like(_id, inc) {
     return this.findOneAndUpdate(

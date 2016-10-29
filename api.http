@@ -1,3 +1,6 @@
+# hello
+GET http://dev.stormfm.io:3000/api/hello
+
 # authenticate user
 POST http://dev.stormfm.io:3000/api/auth/login
 Content-Type: application/json
@@ -17,11 +20,11 @@ Content-Type: application/json
 
 # get users
 GET http://dev.stormfm.io:3000/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzE0OTIwOSwiZXhwIjoxNDc3MTcwODA5fQ.P28-72-8Lj8GlkuwEwsNTDT5PbcAC-u_4qPVYNnOMUc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzM2MjUxMSwiZXhwIjoxNDc3Mzg0MTExfQ.LcgOIkmF72-lvy5htyeHpELntRbS53wrqaiBmhMOkDU
 
 # get user
 GET http://dev.stormfm.io:3000/api/users/580aef4f04c1ce29371c0971
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzE0OTIwOSwiZXhwIjoxNDc3MTcwODA5fQ.P28-72-8Lj8GlkuwEwsNTDT5PbcAC-u_4qPVYNnOMUc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzM2MjUxMSwiZXhwIjoxNDc3Mzg0MTExfQ.LcgOIkmF72-lvy5htyeHpELntRbS53wrqaiBmhMOkDU
 
 # update user
 PUT http://dev.stormfm.io:3000/api/users
@@ -37,20 +40,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFmMzU5Z
 
 # create track
 POST http://dev.stormfm.io:3000/api/tracks
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzEyOTgyNCwiZXhwIjoxNDc3MTUxNDI0fQ.q-Dn3Mf81ZwB9duCXuLkFzuo_3432TpmuRgjqgdxDRI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzQxMzY2NywiZXhwIjoxNDc3NDM1MjY3fQ.rWBwt4WyX7OX_LWHR_Zt7Bl9hnl7TUo3j-LCM2FDG_U
 Content-type: application/json
 {
-  "title": "Snapdragon",
+  "title": "Skin DeepJust Like Heaven",
   "artist": {
-    "name": "ilan Bluestone"
+    "name": "Vincenzo feat. Minako"
   },
-  "description": "Fresh track from IB picked as the \"Record of the week\" by Above & Beyond.",
+  "description": "Groovy deep house track from Arjunadeep artist Vincenzo.",
   "artwork": {
-    "url": "https://i1.sndcdn.com/artworks-000092217794-pyp3n3-large.jpg"
+    "url": "https://i1.sndcdn.com/artworks-000091513345-7syibo-large.jpg"
   },
   "source": {
     "type": "soundcloud",
-    "url": "https://soundcloud.com/ibluestone/snapdragon-abgt"
+    "url": "https://soundcloud.com/anjunadeep/vincenzo-feat-minako-just-like-heaven-1"
   }
 }
 
