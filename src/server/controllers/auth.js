@@ -13,7 +13,8 @@ function login(req, res, next) {
     }, config.jwtSecret, {
       expiresIn: config.jwtExpireTime
     })
-    return res.json({ token, id: user.id})
+    const { id, username, email, like_count, submit_count } = user
+    return res.json({ token, id, username, email, like_count, submit_count })
   }).catch(e => next(e))
 }
 

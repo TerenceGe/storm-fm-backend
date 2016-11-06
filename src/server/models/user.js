@@ -79,11 +79,11 @@ UserSchema.statics = {
     return co(function* () {
       const user = yield this.findOne({ $or: [{ username: identity }, { email: identity }] }).exec()
       if(!user) {
-        const err = new APIError('Incorrect username or email!', httpStatus.UNAUTHORIZED, true)
+        const err = new APIError('Incorrect username or email 😕', httpStatus.UNAUTHORIZED, true)
         return Promise.reject(err)
       }
       else if(!user.authenticate(password)) {
-        const err = new APIError('Incorrect password!', httpStatus.UNAUTHORIZED, true)
+        const err = new APIError('Incorrect password 😕', httpStatus.UNAUTHORIZED, true)
         return Promise.reject(err)
       }
       return user
