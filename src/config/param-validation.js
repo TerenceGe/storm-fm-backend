@@ -19,7 +19,7 @@ export default {
   login: {
     body: {
       identity: Joi.string().required(),
-      password: Joi.string().regex(/^[a-zA-Z]\w{3,20}$/).required()
+      password: Joi.string().required()
     }
   }
 }
