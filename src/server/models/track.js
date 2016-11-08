@@ -82,8 +82,7 @@ TrackSchema.statics = {
           $lt: moment(date).endOf('day')
         }
       }).exec()
-      const count = tracks.length
-      return { date, count, tracks }
+      return { tracks }
     }.bind(this))
   },
   like(_id, inc) {
