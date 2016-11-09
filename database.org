@@ -1,0 +1,14 @@
+#+TITLE: Storm FM Database Design
+#+AUTHOR: Terence Ge
+
+* User
+
+| Field        | Type   | required | Default  | Unique | Index |
+|--------------+--------+----------+----------+--------+-------|
+| username     | String | true     |          | true   | true  |
+| email        | String | true     |          | true   | true  |
+| password     | String | true     |          |        |       |
+| like_count   | Number |          | 0        |        |       |
+| submit_count | Number |          | 0        |        |       |
+| updated_at   | Date   |          | Date.now |        |       |
+| created_at   | Date   |          | Date.now |        |       |
