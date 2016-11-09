@@ -1,0 +1,40 @@
+#+TITLE: Storm FM Database Design (Mongodb)
+#+AUTHOR: Terence Ge
+
+* User
+
+| Field        | Type   | Required | Default  | Unique | Index |
+|--------------+--------+----------+----------+--------+-------|
+| username     | String | true     |          | true   | true  |
+| email        | String | true     |          | true   | true  |
+| password     | String | true     |          |        |       |
+| like_count   | Number |          | 0        |        |       |
+| submit_count | Number |          | 0        |        |       |
+| updated_at   | Date   |          | Date.now |        |       |
+| created_at   | Date   |          | Date.now |        |       |
+
+* Track
+
+| Field         | Type     | Required |  Default | Unique | Index | Ref  |
+|---------------+----------+----------+----------+--------+-------+------|
+| title         | String   | true     |          |        |       |      |
+| artist        | Object   |          |          |        |       |      |
+| artist.name   | String   | true     |          |        |       |      |
+| artwork       | Object   |          |          |        |       |      |
+| artwork.url   | String   | true     |          |        |       |      |
+| source        | Object   |          |          |        |       |      |
+| source.name   | String   | true     |          |        |       |      |
+| source.url    | String   | true     |          |        |       |      |
+| user_id       | ObjectId | true     |          |        |       | User |
+| like_count    | Number   |          |        0 |        |       |      |
+| comment_count | Number   |          |        0 |        |       |      |
+| updated_at    | Date     |          | Date.now |        |       |      |
+| created_at    | Date     |          | Date.now |        |       |      |
+
+* Like
+
+| Filed    | Type     | Required | Default | Unique | Index | Ref   |
+|----------+----------+----------+---------+--------+-------+-------|
+| user_id  | ObjectId | true     |         |        |       | User  |
+| track_id | ObjectId | true     |         |        |       | Track |
+| trashed  | Boolean  |          | false   |        |       |       |

@@ -10,7 +10,7 @@ fs.readdirSync(path.join(__dirname, 'node_modules'))
   })
 
 module.exports = {
-  context: path.join(__dirname, './src'),
+  context: path.join(__dirname, './'),
   entry: './index.js',
   output: {
     path: path.join(__dirname, './dist'),
