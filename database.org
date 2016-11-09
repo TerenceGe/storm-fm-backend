@@ -30,3 +30,11 @@
 | comment_count | Number   |          |        0 |        |       |      |
 | updated_at    | Date     |          | Date.now |        |       |      |
 | created_at    | Date     |          | Date.now |        |       |      |
+
+* Like
+
+| Filed    | Type     | Required | Default | Unique | Index | Ref   |
+|----------+----------+----------+---------+--------+-------+-------|
+| user_id  | ObjectId | true     |         |        |       | User  |
+| track_id | ObjectId | true     |         |        |       | Track |
+| trashed  | Boolean  |          | false   |        |       |       |
