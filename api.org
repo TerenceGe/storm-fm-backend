@@ -2,7 +2,7 @@
 #+AUTHOR: Terence Ge
 
 Base URL:
-http://dev.stormfm.io:3000/api (development)
+http://dev.stormfm.io:3000/api (development),
 http://api.stormfm.io (production)
 
 | METHOD | ENDPOINT     | PARAMS                 | RETURN    | USAGE               |
@@ -10,11 +10,11 @@ http://api.stormfm.io (production)
 | GET    | /hello       |                        | goodbye   | test                |
 | POST   | /auth/login  | { identity, password } | { token } | authenticate user   |
 | GET    | /me          |                        | user      | get current user    |
-| PUT    | /me          | user                   | user      | update current user |
-| GET    | /users       |                        | users     | get users           |
-| GET    | /users/{id}  |                        | user      | get user            |
-| POST   | /users       | user                   | user      | create user         |
-| PUT    | /users/{id}  | user                   | user      | update user         |
+| PUT    | /me          | user*                  | user*     | update current user |
+| GET    | /users       |                        | users*    | get users           |
+| GET    | /users/{id}  |                        | user*     | get user            |
+| POST   | /users       | user                   | user*     | create user         |
+| PUT    | /users/{id}  | user*                  | user*     | update user         |
 | DELETE | /users       | { id }                 |           | delete user         |
 | GET    | /tracks      | { page, filter }       |           | get trakcs          |
 | GET    | /tracks/{id} |                        | track     | get track           |
