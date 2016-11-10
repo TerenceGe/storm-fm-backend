@@ -18,9 +18,13 @@ Content-Type: application/json
   "password": "password"
 }
 
+# get current user
+GET http://dev.stormfm.io:3000/api/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3ODc4NzE5MywiZXhwIjoxNDc4ODA4NzkzfQ.5_7aKgnf9OzS8N751I-XcUK-ArMRKa29Crjdjc_vISg
+
 # get users
 GET http://dev.stormfm.io:3000/api/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3NzM2MjUxMSwiZXhwIjoxNDc3Mzg0MTExfQ.LcgOIkmF72-lvy5htyeHpELntRbS53wrqaiBmhMOkDU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MGFlZjRmMDRjMWNlMjkzNzFjMDk3MSIsImlhdCI6MTQ3ODc4NzE5MywiZXhwIjoxNDc4ODA4NzkzfQ.5_7aKgnf9OzS8N751I-XcUK-ArMRKa29Crjdjc_vISg
 
 # get user
 GET http://dev.stormfm.io:3000/api/users/580aef4f04c1ce29371c0971

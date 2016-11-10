@@ -16,7 +16,7 @@ http://api.stormfm.io (production)
 | POST   | /users                | user                   | user*       | create user         |
 | PUT    | /users/{id}           | user*                  | user*       | update user         |
 | DELETE | /users                | { id }                 | { message } | delete user         |
-| GET    | /tracks               | { page, filter }       | tracks      | get trakcs          |
+| GET    | /tracks               | { page, filter }       | tracks      | get tracks          |
 | GET    | /tracks/{id}          |                        | track       | get track           |
 | POST   | /tracks/{id}/likes    |                        | like        | like track          |
 | POST   | /tracks/{id}/comments | { body }               | comment     | comment track       |
